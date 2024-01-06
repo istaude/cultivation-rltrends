@@ -503,7 +503,7 @@ Prachtspiere;Bach-P.;Astilbe;A. rivularis;Z s;Z;NA;NA
 Prachtspiere;Japanische P.;Astilbe;A. japonica;Z z;Z;NA;NA
 Prachtspiere;Thunberg-P.;Astilbe;A. thunbergii;Z z;Z;NA;NA
 Prachtspiere;Rote P.;Astilbe;A. rubra f.;Z s;Z;NA;NA
-Tafelblatt;Tafelblatt;Astilboides;A. tabularis;Z s;NA;NA;NA
+Tafelblatt;Tafelblatt;Astilboides;A. tabularis;Z s;Z;NA;NA
 Sterndolde;Riesen-St.;Astrantia;A. maxima;Z v;Z;NA;NA
 Sterndolde;Große St.;Astrantia;A. major;Z v;Z;NA;W
 Augenwurz;Zottige A.;Athamantha;A. cretensis;Z z;Z;NA;W
@@ -2208,7 +2208,7 @@ Blauglöckchen;Behaartes B.;Mertensia;M. echioides;Z s;Z;NA;NA
 Blauglöckchen;Primelähnliches B.;Mertensia;M. primuloides;Z z;Z;NA;NA
 Blauglöckchen;Alpines B.;Mertensia;M. alpina;Z s;Z;NA;NA
 Eiskraut;Kristall-E.;Mesembryanthemum;M. crystallinum;Z s;Z;NA;NA
-Bärwurz;Bärwurz, Bärenkümmel;Meum;M. athamanticum;Z s;NA;NA;W
+Bärwurz;Bärwurz, Bärenkümmel;Meum;M. athamanticum;Z s;Z;NA;W
 Türkenglocke, Michauxie;Gewöhnliche T.;Michauxia;M. campanuloides;Z s;Z;NA;NA
 Mikanie;Kletter-Mikanie;Mikania;M. scandens;Z s;Z;NA;NA
 Flattergras;Wald-F.;Milium;M. effusum;Z s;Z;NA;W
@@ -3078,7 +3078,7 @@ Alpenglöckchen, Troddelblume;Gewöhnliches A., Alpen-T.;Soldanella;S. alpina;Z 
 Alpenglöckchen, Troddelblume;Karpaten-A.;Soldanella;S. carpatica;Z s;Z;NA;NA
 Alpenglöckchen, Troddelblume;Berg-A.;Soldanella;S. montana;Z s;Z;NA;W
 Alpenglöckchen, Troddelblume;Ungarisches A.;Soldanella;S. hungarica;Z s;Z;NA;NA
-Buntnessel;Buntnessel;Solenostemon;S. scutellarioides;Z z;NA;NA;NA
+Buntnessel;Buntnessel;Solenostemon;S. scutellarioides;Z z;Z;NA;NA
 Goldrute;Wald-G.;Solidago;S. arguta;Z s;Z;NA;NA
 Goldrute;Gefleckte G.;Solidago;S. sphacelata;Z s;Z;NA;NA
 Goldrute;Riesen-G.;Solidago;S. gigantea;Z s;Z;NA;W
@@ -3294,7 +3294,7 @@ Weizen;Einkorn-W., Einkorn;Triticum;T. monococcum;N z;N;NA;W
 Weizen;Emmer-W.;Triticum;T. dicoccon;N v;N;NA;NA
 Weizen;Rau-W.;Triticum;T. turgid;N s;N;NA;NA
 Weizen;Saat-W.;Triticum;T. aestivum;N v;N;NA;NA
-Weizen;Europäischer Dinkel-W.;Triticum;× T. blaringhemii;N v;NA;NA;NA
+Weizen;Europäischer Dinkel-W.;Triticum;T. spelta;N v;N;NA;NA
 Tritonie;Safranfarbige T.;Tritonia;T. crocata;Z s;Z;NA;NA
 Trollblume;Kaschmir-T.;Trollius;T. acaulis;Z s;Z;NA;NA
 Trollblume;Chinesische T.;Trollius;T. chinensis;Z z;Z;NA;NA
@@ -3482,5 +3482,64 @@ Zinnie;Peruanische Z.;Zinnia;Z. peruviana;Z s;Z;NA;NA
 Wasserreis;Einjähriger W., Kanadischer Wildreis;Zizania;Z. aquatica;N s;N;Z;NA
 Bastardstrandhafer;Baltischer B.;× Calammophila;× C. baltica;N z;N;NA;W
 Bastardschwingel;Deutscher B.;× Festulolium;× F. braunii;N z;N;NA;W
-Tritikale, Rimpauweizen;Echter Rimpauweizen;× Triticosecale;× T. blaringhemii;NA;N;NA;NA
+Tritikale, Rimpauweizen;Echter Rimpauweizen;× Triticosecale;× T. blaringhemii;N v;N;NA;NA
 Scheinkornblume;Scheinkornblume, Stern der Weisen;Cyanopsis;C. muricata;Z s;Z;NA;NA
+Schachtelhalm;Simsenähnlicher Sch.;Equisetum;E. scirpoides;Z s;Z;NA;NA
+Schachtelhalm;Winter-Sch.;Equisetum;E. hyemale;Z s;Z;NA;W
+Schachtelhalm;Bunter Sch.;Equisetum;E. variegatum;Z s;Z;NA;W
+Schachtelhalm;Wald-Sch.;Equisetum;E. sylvaticum;Z s;Z;NA;W
+Schachtelhalm;Teich-Sch.;Equisetum;E. fluviatile;Z s;Z;NA;W
+Schachtelhalm;Riesen-Sch.;Equisetum;E. telmateia;Z s;Z;NA;W
+Rispenfarn;Königsfarn;Osmunda;O. regalis;Z z;Z;NA;W
+Rispenfarn;Kronen-R.;Osmunda;O. claytoniana;Z s;Z;NA;NA
+Rispenfarn;Zimtstangen-R.;Osmunda;O. cinnamomea;Z s;Z;NA;NA
+Schüsselfarn;Schüsselfarn;Dennstaedtia;D. punctilobula;Z s;Z;NA;NA
+Adlerfarn;Adlerfarn;Pteridium;P. aquilinum;Z s;Z;NA;W
+Klippenfarn;Purpur-Klippenfarn;Pellaea;P. atropurpurea;Z s;Z;NA;NA
+Frauenhaarfarn, Venushaarfarn;Pfauenrad-F.;Adiantum;A. pedatum;Z s;Z;NA;NA
+Frauenhaarfarn, Venushaarfarn;Himalaja-F.;Adiantum;A. venustum;Z s;Z;NA;NA
+Buchenfarn;Buchenfarn;Phegopteris;Ph. Connectilis;Z s;Z;NA;W
+Sumpffarn;Sumpffarn;Thelypteris;Th. palustris;Z s;Z;NA;W
+Hirschzunge;Hirschzunge;Phyllitis;P. scolopendrium;Z z;Z;NA;W
+Streifenfarn;Braunstieliger St.;Asplenium;A. trichomanes;Z s;Z;NA;W
+Streifenfarn;Grünstieliger St.;Asplenium;A. viride;Z s;Z;NA;W
+Streifenfarn;Mauerraute;Asplenium;A. ruta-muraria;Z s;Z;NA;W
+Streifenfarn;Schwarzstieliger St.;Asplenium;A. adiantum-nigrum;Z s;Z;NA;W
+Straußenfarn;Gemeiner St.;Matteuccia;M. struthiopteris;Z v;Z;NA;W
+Wimperfarn;Großer W.;Woodsia;W. obtusa;Z s;Z;NA;NA
+Wimperfarn;Rostroter W.;Woodsia;W. ilvensis;Z s;Z;NA;NA
+Wimperfarn;Alpen-W;Woodsia;W. alpina;Z s;Z;NA;W
+Frauenfarn;Gebirgs-F.;Athyrium;A. distentifolium;Z s;Z;NA;W
+Frauenfarn;Gemeiner F.;Athyrium;A. filix-femina;Z v;Z;NA;W
+Frauenfarn;Japanischer F.;Athyrium;A. niponicum;Z s;Z;NA;NA
+Blasenfarn;Brutknospentragender B.;Cystopteris;C. bulbifera;Z s;Z;NA;NA
+Blasenfarn;Zerbrechlicher B.;Cystopteris;C. fragilis;Z s;Z;NA;W
+Perlfarn;Perlfarn;Onoclea;O. sensibilis;Z s;Z;NA;NA
+Eichenfarn;Eichenfarn;Gymnocarpium;G. dryopteris;Z s;Z;NA;W
+Eichenfarn;Ruprechtsfarn;Gymnocarpium;G. robertianum;Z s;Z;NA;W
+Schildfarn;Lanzen-Sch.;Polystichum;P. lonchitis;Z s;Z;NA;W
+Schildfarn;Weihnachts-Sch.;Polystichum;P. acrostichoides;Z s;Z;NA;NA
+Schildfarn;Schwert-Sch.;Polystichum;P. munitum;Z s;Z;NA;NA
+Schildfarn;Brutknospen-Sch.;Polystichum;P. setiferum;Z z;Z;NA;NA
+Schildfarn;Dreiflügel-Sch.;Polystichum;P. tripteron;Z s;Z;NA;NA
+Schildfarn;Weicher Sch.;Polystichum;P. braunii;Z s;Z;NA;W
+Schildfarn;Dorniger Sch.;Polystichum;P. aculeatum;Z s;Z;NA;W
+Schildfarn;Schwarzschuppen-Sch.;Polystichum;P. makinoi;Z s;Z;NA;NA
+Schildfarn;Grannen-Sch.;Polystichum;P. setiferum;Z s;Z;NA;W
+Schildfarn;Japanischer Glanz-Sch.;Polystichum;P. polyblepharum;Z s;Z;NA;NA
+Ilexfarn;Ostasiatischer I.;Cyrtomium;C. fortunei;Z s;Z;NA;NA
+Ilexfarn;Sichel-I.;Cyrtomium;C. falcatum;Z s;Z;NA;NA
+Wurmfarn;Rotschleier-W.;Dryopteris;D. erythrosora;Z s;Z;NA;NA
+Wurmfarn;Elefantenrüssel-W.;Dryopteris;D. atrata;Z s;Z;NA;NA
+Wurmfarn;Randständiger W.;Dryopteris;D. marginalis;Z s;Z;NA;NA
+Wurmfarn;Kamm-W.;Dryopteris;D. cristata;Z s;Z;NA;W
+Wurmfarn;Spreuschuppiger W.;Dryopteris;D. affinis;Z s;Z;NA;W
+Wurmfarn;Gemeiner W.;Dryopteris;D. filix-mas;Z v;Z;NA;W
+Wurmfarn;Dornfarn;Dryopteris;D. carthusiana;Z s;Z;NA;W
+Wurmfarn;Breitblättriger Dornfarn;Dryopteris;D. dilatata;Z s;Z;NA;W
+Rippenfarn;Gemeiner R.;Blechnum;B. spicant;Z z;Z;NA;W
+Rippenfarn;Seefeder-R.;Blechnum;B. penna-marina;Z s;Z;NA;NA
+Tüpfelfarn;Engelsüß;Polypodium;P. vulgare;Z s;Z;NA;W
+Kleefarn;Vierblättriger K.;Marsilea;M. quadrifolia;Z s;Z;NA;W
+Schwimmfarn;Gewöhnlicher Sch.;Salvinia;S. natans;Z s;Z;NA;W
+Algenfarn;Großer A.;Azolla;A. filiculoides;Z s;Z;NA;W

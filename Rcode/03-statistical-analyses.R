@@ -11,17 +11,18 @@ names(d)
 # how man species are cultivated in Germany?
 d %>% filter(cultivated == "yes") %>% group_by(taxon_name) %>% count() %>% arrange(desc(n))
 d %>% filter(cultivated == "yes") %>% nrow()
-# 3407 species cultivated
+# 3464 species cultivated
 
 # how many as ornamental plants, how many as crops?
 d %>% filter(cultivated == "yes") %>% count(ornamental, crop)
+d %>% filter(cultivated == "yes") %>% filter(is.na(ornamental) & is.na(crop)) %>% View
 
 # how many of these species are native, how many non-native?
 d <- d %>% mutate(native = ifelse(is.na(native) == T , "non-native", native))
 d %>% filter(cultivated == "yes") %>% count(native)
-# 152 + 13 species = 165 non-native species are established from a total
-# of 2531 + 165 non-native species cultivated
-165 / (2524 + 165)
+# 153 + 13 species = 166 non-native species are established from a total
+# of 2546 + 166 non-native species cultivated
+166 / (2546 + 166)
 # c. 6 %
 total <- d %>% filter(cultivated == "yes") %>% nrow()
 d %>% filter(cultivated == "yes") %>% count(native) %>% 
@@ -30,7 +31,7 @@ d %>% filter(cultivated == "yes") %>% count(native) %>%
 
 # how much is that relative to the German native flora?
 d %>% filter(native == "native") %>% nrow()
-# 3584 wild native species in Germany
+# 3512 wild native species in Germany
 
 # taking out apomictic genera Rubus and Hieracium
 d %>% filter(native == "native") %>% 
@@ -39,7 +40,7 @@ d %>% filter(native == "native") %>%
 
 # this suggests the native flora is enriched by an additional 2689 species
 # cultivated in gardens. That is 
-2689 / 3512
+2712 / 3512
 
 # how many established non-natives are there in Germany
 d %>% filter(native == "established non-native") %>% nrow
@@ -48,12 +49,12 @@ rl <- read_excel("Data/02_Datentabelle_RL_Farn-_und_Bluetenpflanzen_2018_Deutsch
 rl %>% filter(Status == "N") %>% 
   filter(Arten == "Arten") %>% 
   nrow
-# that's an overall reduction of about 25 species, this is likely due to
-# matching the taxonomy to WCVP
+# that's an overall reduction of about 50 species, due to
+# matching the taxonomy to WCVP, excluding trees
 
 # 361 non-native species are established in Germany (BfN estimates 470 established
 # non-natives, important here to say that we only count species, and no trees)
-165/361
+166/361
 
 
 # how the cultivation frequency is distributed across species -------------
@@ -79,14 +80,14 @@ d %>%
   filter(cultivated == "yes") %>% 
   filter(native == "native") %>% 
   count(frequency) %>% 
-  mutate(n / 718)
+  mutate(prop = n / 752)
 
 
 # study the relationship between rl and cultivation -----------------------
 
 dt <- d %>% filter(native == "native") %>% 
   mutate(cultivated = ifelse(is.na(cultivated) == T, 
-                             "Not cultivated", "Cultivated")) %>% 
+                             "Non-cultivated", "Cultivated")) %>% 
   select(-wild)
 
 dt %>% group_by(cultivated) %>% count
@@ -101,7 +102,7 @@ dt_overview <- dt_overview %>%
   mutate(endangered = ifelse(threat_2018 %in% endangered_categories, 
                              "Endangered", 
                              ifelse(threat_2018 %in% not_endangered_categories,
-                                    "Not endangered", "Data Deficient"))) %>% 
+                                    "Non-endangered", "Data Deficient"))) %>% 
   filter(endangered != "Data Deficient")
 
 custom_order <- c("0", "1", "2", "3", "G", "V", "R", "*")
@@ -113,7 +114,7 @@ dt_overview$threat_2018 <- factor(dt_overview$threat_2018, levels = custom_order
                   position = ggplot2::position_stack(reverse = FALSE)) +
     labs(x = "Threat Categories", y = "Count", fill = "") +
     scale_fill_manual(values = c("Endangered" = "#fbcbe0", 
-                                 "Not endangered" = "#e8e9eb")) +
+                                 "Non-endangered" = "#e8e9eb")) +
     theme_ipsum(axis_text_size = 14, 
                 axis_title_size = 14,
                 strip_text_size = 14,
@@ -133,7 +134,7 @@ proportions <- dt_overview %>%
 proportions
 
 # visualize
-custom_order <- c("Cultivated", "Not cultivated")
+custom_order <- c("Cultivated", "Non-cultivated")
 proportions$cultivated <- factor(proportions$cultivated, levels = custom_order)
 unique_totals <- proportions %>%  group_by(cultivated) %>% 
   summarise(total = sum(total_count)) %>% mutate(endangered = "endangered")
@@ -148,7 +149,7 @@ unique_totals <- proportions %>%  group_by(cultivated) %>%
               vjust = -.1, size = 4, color = "black",
               family = "Arial Narrow", fontface = "italic") +
     scale_fill_manual(values = c("Endangered" = "#fbcbe0", 
-                                 "Not endangered" = "#e8e9eb")) +
+                                 "Non-endangered" = "#e8e9eb")) +
     theme_ipsum(axis_text_size = 14, grid = "",
                 axis_title_just = "mm") +
     labs(x = "", y = "", fill = "") +
@@ -162,10 +163,10 @@ proportions_wide <- proportions %>%
   select(-proportion) %>% 
   filter(endangered != "Data Deficient") %>% 
   pivot_wider(names_from = endangered, values_from = total_count) %>% 
-  mutate(total = Endangered +  `Not endangered`)
+  mutate(total = Endangered + `Non-endangered`)
 
 # perform fisher's exact test
-fisher.test(proportions_wide[, c("Endangered", "Not endangered")])
+fisher.test(proportions_wide[, c("Endangered", "Non-endangered")])
 
 # do this per cultivation frequency
 # calculate proportions
@@ -173,14 +174,14 @@ proportions <- dt %>%
   mutate(frequency = ifelse(
     cultivated == "yes" & is.na(frequency) == T,
     "Unknown",
-    ifelse(cultivated == "Cultivated", frequency, "Not cultivated")
+    ifelse(cultivated == "Cultivated", frequency, "Non-cultivated")
   )) %>%
   mutate(endangered = ifelse(
     threat_2018 %in% endangered_categories,
     "Endangered",
     ifelse(
       threat_2018 %in% not_endangered_categories,
-      "Not endangered",
+      "Non-endangered",
       "Data Deficient"
     )
   )) %>%
@@ -194,7 +195,7 @@ proportions <- left_join(proportions, totals) %>% mutate(proportion = (n/total*1
 proportions
 
 # visualize
-custom_order <- c("Common", "Scattered", "Rare", "Not cultivated")
+custom_order <- c("Common", "Scattered", "Rare", "Non-cultivated")
 proportions$frequency <- factor(proportions$frequency, levels = custom_order)
 unique_totals <- proportions[!duplicated(proportions$frequency), ]
 
@@ -208,7 +209,7 @@ unique_totals <- proportions[!duplicated(proportions$frequency), ]
               vjust = -.1, size = 4, color = "black",
               family = "Arial Narrow", fontface = "italic") +
     scale_fill_manual(values = c("Endangered" = "#fbcbe0", 
-                                 "Not endangered" = "#e8e9eb")) +
+                                 "Non-endangered" = "#e8e9eb")) +
     theme_ipsum(axis_text_size = 14, grid = "",
                 axis_title_just = "mm") +
     labs(x = "", y = "", fill = "") +
@@ -225,18 +226,18 @@ proportions_wide <- proportions %>%
 fisher.test(
   (proportions_wide %>%
     filter(frequency == "Common" |
-             frequency == "Not cultivated"))[, c("Endangered", 
-                                                 "Not endangered")])
+             frequency == "Non-cultivated"))[, c("Endangered", 
+                                                 "Non-endangered")])
 fisher.test(
   (proportions_wide %>%
      filter(frequency == "Scattered" |
-              frequency == "Not cultivated"))[, c("Endangered", 
-                                                  "Not endangered")])
+              frequency == "Non-cultivated"))[, c("Endangered", 
+                                                  "Non-endangered")])
 fisher.test(
   (proportions_wide %>%
      filter(frequency == "Rare" |
-              frequency == "Not cultivated"))[, c("Endangered", 
-                                                  "Not endangered")])
+              frequency == "Non-cultivated"))[, c("Endangered", 
+                                                  "Non-endangered")])
 
 # create multi-panel plot
 # Customize theme for each plot
@@ -264,6 +265,11 @@ ggsave(width = 10, height = 7.5, bg = "white",
        dpi = 600)
 showtext_opts(dpi=96)
 
+# pdf
+showtext_opts(dpi=600)
+ggsave(width = 10, height = 7.5, bg = "white",
+       file = "Figures/fig1.pdf")
+showtext_opts(dpi=96)
 
 # population trend data ---------------------------------------------------
 
@@ -276,14 +282,14 @@ dt_trend <- dt %>% select(taxon_name,
   mutate(frequency = ifelse(
     cultivated == "Cultivated" & is.na(frequency) == T,
     "Unknown",
-    ifelse(is.na(frequency) == F, frequency, "Not cultivated")
+    ifelse(is.na(frequency) == F, frequency, "Non-cultivated")
   )) %>%
   mutate(endangered = ifelse(
     threat_2018 %in% endangered_categories,
     "Endangered",
     ifelse(
       threat_2018 %in% not_endangered_categories,
-      "Not Endangered",
+      "Non-Endangered",
       "Data Deficient"
     )
   ))
@@ -306,7 +312,7 @@ totals <- proportions %>% group_by(frequency) %>% summarize(total = sum(n))
 proportions <- left_join(proportions, totals) %>% mutate(proportion = n/total*100)
 proportions
 
-custom_order <- c("Common", "Scattered", "Rare", "Not cultivated")
+custom_order <- c("Common", "Scattered", "Rare", "Non-cultivated")
 proportions$frequency <- factor(proportions$frequency, levels = custom_order)
 unique_totals <- proportions[!duplicated(proportions$frequency), ]
 
@@ -344,6 +350,12 @@ ggsave(width = 8, height = 6, bg = "white",
        file = "Figures/fig2.png",
        dpi = 600)
 showtext_opts(dpi=96)
+# pdf
+showtext_opts(dpi=600)
+ggsave(width = 8, height = 6, bg = "white",
+       file = "Figures/fig2.pdf")
+showtext_opts(dpi=96)
+
 
 # fisher tests
 proportions$trend[proportions$trend == "<"] <- "decline" 
@@ -355,18 +367,18 @@ decline <- proportions %>%
   group_by(frequency, trend) %>% 
   summarise(n= sum(n), total = first(total)) %>% 
   mutate(perc = n/total) %>% 
-  filter(frequency == "Scattered" | frequency == "Not cultivated") %>% 
+  filter(frequency == "Rare" | frequency == "Non-cultivated") %>% 
   mutate(notn = total -n)
 fisher.test(decline[, c("n", "notn")])
 
 stable <- proportions %>% 
   filter(trend == "=") %>% 
-  filter(frequency == "Common" | frequency == "Not cultivated") %>% 
+  filter(frequency == "Common" | frequency == "Non-cultivated") %>% 
   mutate(notn = total -n)
 fisher.test(stable[, c("n", "notn")])
 
 increase <- proportions %>% filter(trend == ">") %>% 
-  filter(frequency == "Common" | frequency == "Not cultivated") %>% 
+  filter(frequency == "Common" | frequency == "Non-cultivated") %>% 
   mutate(notn = total -n)
 fisher.test(increase[, c("n", "notn")])
 
@@ -436,7 +448,7 @@ totals <- proportions %>% group_by(frequency) %>% summarize(total = sum(n))
 proportions <- left_join(proportions, totals) %>% mutate(proportion = n/total*100)
 proportions
 
-custom_order <- c("Common", "Scattered", "Rare", "Not cultivated")
+custom_order <- c("Common", "Scattered", "Rare", "Non-cultivated")
 proportions$frequency <- factor(proportions$frequency, levels = custom_order)
 custom_order <- c("Decline", "Stable", "Improvement")
 proportions$change <- factor(proportions$change, levels = custom_order)
@@ -488,12 +500,17 @@ ggsave(width = 8.2, height = 10, bg = "white",
        dpi = 600)
 showtext_opts(dpi=96)
 
+# pdf
+showtext_opts(dpi=600)
+ggsave(width = 8.2, height = 10, bg = "white",
+       file = "Figures/fig3.pdf")
+showtext_opts(dpi=96)
 
 # test for differences
 test_frame <- proportions %>% 
   select(-proportion) %>% 
   pivot_wider(names_from = change, values_from = n) %>% 
-  filter(frequency == "Common" | frequency == "Not cultivated")
+  filter(frequency == "Common" | frequency == "Non-cultivated")
   
 fisher.test(test_frame[, c("Decline", "Improvement")])
 
@@ -502,8 +519,9 @@ fisher.test(test_frame[, c("Decline", "Improvement")])
 # some filtering for disucssion -------------------------------------------
 
 # examples of commonly cultivated species endangered in 2018
-dt_trend2 %>% filter(endangered == "Endangered") %>% 
-  filter(frequency == "Common") %>% View()
+dt_trend2 %>% 
+  filter(frequency == "Common") %>% 
+  filter(change != "Stable") %>% View
 
 
 dt_trend2 %>% filter(change == "Decline") %>% 

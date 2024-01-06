@@ -109,8 +109,7 @@ rd$species_scientific <- gsub("\\s*f\\.$", "", rd$species_scientific)
 # perform other check with rwcvp for rl
 wcvp_match_rl <- wcvp_match_names(rl, 
                                   name_col = "species_without",
-                                  fuzzy = TRUE)
-
+                                  fuzzy = T)
 
 wcvp_acc_rl <-
   wcvp_match_rl %>% select(species_without, wcvp_status, wcvp_accepted_id)
@@ -191,11 +190,10 @@ d <- full_join(rd_wcvp %>% select(taxon_name, frequency, ornamental, crop, wild)
 
 # remove all non-herbaceous plants ----------------------------------------
 
-# Rothmaler only lists herbaceoues plants, thus naturally any RL
-# species that is a tree or a shrub cannot be cultivated in this analysis
+# Rothmaler data only for herbaceous seed plants, thus any RL
+# species that is a fern, tree or a shrub is listed as non-cultivated in this analysis
 tree <- read_excel("Data/TRY_Categorical_Traits_Lookup_Table_2012_03_17_TestRelease.xlsx")
-tree <- tree %>% select(AccSpeciesName,PlantGrowthForm, Woodiness) %>% 
-  filter(Woodiness == "woody")
+tree <- tree %>% select(AccSpeciesName, PlantGrowthForm) 
 
 # match with wcvp
 tree_wcvp <- wcvp_match_names(tree, 
@@ -208,8 +206,8 @@ tree_wcvp <- tree_wcvp %>% select(AccSpeciesName, wcvp_status, wcvp_accepted_id)
   distinct(AccSpeciesName, .keep_all = TRUE)
 
 # find right species name and join back
-names_rl <- wcvp_names %>% select(wcvp_accepted_id = plant_name_id, taxon_name)
-tree_wcvp <- left_join(tree_wcvp, names_rl) 
+names <- wcvp_names %>% select(wcvp_accepted_id = plant_name_id, taxon_name)
+tree_wcvp <- left_join(tree_wcvp, names) 
 tree_wcvp <- left_join(tree, tree_wcvp)
 
 tree_wcvp <- tree_wcvp %>% select(taxon_name, PlantGrowthForm) %>% distinct
@@ -222,8 +220,19 @@ tree_wcvp <- tree_wcvp %>% na.omit() %>% group_by(taxon_name) %>%
 d <- left_join(d, tree_wcvp)
 d %>% group_by(cultivated, PlantGrowthForm) %>% count()
 
+# overlap with rl? 
+# native
+(overlap <- left_join(rl_wcvp, tree_wcvp) %>% filter(native == "native") %>% 
+  group_by(PlantGrowthForm) %>% count)
+#all
+(overlap <- left_join(rl_wcvp, tree_wcvp) %>% 
+    group_by(PlantGrowthForm) %>% count)
+
+1 - 1298/sum(overlap$n)
+
 # it seems fair to exclude the category tree and shrub/tree for all
-d <- d %>% filter((PlantGrowthForm != "tree") %>% replace_na(TRUE)) %>% 
+d <- d %>% 
+  filter((PlantGrowthForm != "tree") %>% replace_na(TRUE)) %>% 
   filter((PlantGrowthForm != "shrub/tree") %>% replace_na(TRUE))
 nrow(d)
 
