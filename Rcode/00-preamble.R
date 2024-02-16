@@ -13,6 +13,9 @@ library(hrbrthemes)
 library(sysfonts)
 library(showtext)
 library(ggchicklet)
+library(gg.layers)
+library(caret)
+library(emmeans)
 
 # add Arial Narrow for plotting
 font_paths("C:/Windows/Fonts")

@@ -254,7 +254,7 @@ fig1c <- fig1c + scale_y_continuous(limits = c(0, 105)) +
   plot_layout(guides = "collect") &
   plot_annotation(tag_levels = "a", 
                   title = "Cultivated plants are less likely to be endangered",
-                  theme = theme(plot.title = element_text(size = 14, 
+                  theme = theme(plot.title = element_text(size = 15, 
                                                           family = "Arial Narrow",
                                                           face = "bold"))) &
   theme(legend.position = "bottom", legend.text=element_text(size=14))
@@ -331,7 +331,7 @@ ggplot(proportions, aes(x = frequency, y = proportion, fill = trend)) +
                                "<<<" = "#f89cc3",
                                "=" = "#e8e9eb",
                                ">" = "#adffe4")) +
-  theme_ipsum(axis_text_size = 14, grid = "", plot_title_size = 14,
+  theme_ipsum(axis_text_size = 14, grid = "", plot_title_size = 15,
               axis_title_just = "mm") +
   labs(x = "", y = "") +
   scale_x_discrete(position = "top") +
@@ -339,6 +339,7 @@ ggplot(proportions, aes(x = frequency, y = proportion, fill = trend)) +
         legend.box = "horizontal",
         legend.margin=margin(0,0,0,0),
         legend.box.margin=margin(10,-20,-5,-15),
+        plot.margin = margin(0, 0, 0, 0), 
         axis.text.y = element_blank(),
         axis.text.x = element_text(colour = "black")) +
   guides(fill = guide_legend(title.position="top", title.hjust = 0.5)) +
@@ -488,21 +489,21 @@ fig3b <- fig3b + theme(plot.margin = margin(0, 0, 0, 0),
                        plot.tag = element_text(face = "bold", family = "Arial Narrow"))
 (fig3a) / (fig3b) +
   plot_annotation(tag_levels = "a", 
-                  title = "Commonly cultivated plants more often witness improvements in Red List category",
-                  theme = theme(plot.title = element_text(size = 14, 
+                  title = "Commonly cultivated plants more often witness Red List category improvements",
+                  theme = theme(plot.title = element_text(size = 15, 
                                                           family = "Arial Narrow",
                                                           face = "bold")))
 
 # save plot
 showtext_opts(dpi=600)
-ggsave(width = 8.2, height = 10, bg = "white",
+ggsave(width = 7, height = 10, bg = "white",
        file = "Figures/fig3.png",
        dpi = 600)
 showtext_opts(dpi=96)
 
 # pdf
 showtext_opts(dpi=600)
-ggsave(width = 8.2, height = 10, bg = "white",
+ggsave(width = 7, height = 10, bg = "white",
        file = "Figures/fig3.pdf")
 showtext_opts(dpi=96)
 
